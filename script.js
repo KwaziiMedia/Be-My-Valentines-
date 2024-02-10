@@ -11,7 +11,7 @@ noBtn.addEventListener("mouseover", function (){
     noBtn.style.left = `${Math.ceil(Math.random() * 50)}%`;
     noBtn.style.top = `${Math.ceil(Math.random() * 50)}%`;
     const image = document.getElementById("image");
-    image.src = "/images/sad-cat.gif"
+    image.src = "images/crying.gif"
     noBtn.innerHTML = "PLEASE POOKIE"
 })
 function changeNo () {
