@@ -1,21 +1,65 @@
-const yesBtn = document.getElementById("yes-btn");
-const noBtn = document.getElementById("no-btn")
+"use strict";
 
-function changeImage () {  
-    const image = document.getElementById("image");
-    image.src = "images/love-you-mochi.gif"
-    // noBtn.innerText = "No Take Backs HEHE"
+const titleElement = document.querySelector(".title");
+const buttonsContainer = document.querySelector(".buttons");
+const yesButton = document.querySelector(".btn--yes");
+const noButton = document.querySelector(".btn--no");
+const catImg = document.querySelector(".cat-img");
+
+const MAX_IMAGES = 5;
+
+let play = true;
+let noCount = 0;
+
+yesButton.addEventListener("click", handleYesClick);
+
+noButton.addEventListener("click", function () {
+  if (play) {
+    noCount++;
+    const imageIndex = Math.min(noCount, MAX_IMAGES);
+    changeImage(imageIndex);
+    resizeYesButton();
+    updateNoButtonText();
+    if (noCount === MAX_IMAGES) {
+      play = false;
+    }
+  }
+    noButton.style.left = `${Math.ceil(Math.random() * 90)}%`;
+    noButton.style.top = `${Math.ceil(Math.random() * 90)}%`;
+});
+
+function handleYesClick() {
+  titleElement.innerHTML = "Gimme Kiss Pookie";
+  buttonsContainer.classList.add("hidden");
+  changeImage("yes");
 }
 
-noBtn.addEventListener("mouseover", function (){
-    noBtn.style.left = `${Math.ceil(Math.random() * 50)}%`;
-    noBtn.style.top = `${Math.ceil(Math.random() * 50)}%`;
-    const image = document.getElementById("image");
-    image.src = "images/crying.gif"
-    noBtn.innerHTML = "PLEASE POOKIE"
-})
-function changeNo () {
-    noBtn.innerHTML = "You Don't Mean That"
-    const image = document.getElementById("image");
-    image.src = "/images/crying.gif"
+function resizeYesButton() {
+  const computedStyle = window.getComputedStyle(yesButton);
+  const fontSize = parseFloat(computedStyle.getPropertyValue("font-size"));
+  const newFontSize = fontSize * 1.6;
+
+  yesButton.style.fontSize = `${newFontSize}px`;
+}
+
+function generateMessage(noCount) {
+  const messages = [
+    "No",
+    "You don't mean that",
+    "Pookie Bear Please",
+    "Don't do this to me :(",
+    "You're breaking my heart",
+    "I'm gonna cry...",
+  ];
+
+  const messageIndex = Math.min(noCount, messages.length - 1);
+  return messages[messageIndex];
+}
+
+function changeImage(image) {
+  catImg.src = `images/cat-${image}.gif`;
+}
+
+function updateNoButtonText() {
+  noButton.innerHTML = generateMessage(noCount);
 }
