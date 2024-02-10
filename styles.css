@@ -10,6 +10,8 @@
   
   body {
     background-color: #fff0f6;
+    background-image: url(background-image.jpg);
+    background-size: contain;
     font-family: 'Modak', system-ui;
   }
   
